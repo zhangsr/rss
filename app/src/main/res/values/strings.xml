@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">RSS</string>
-    <string name="title_inbox">Home</string>
-    <string name="title_discover">Dashboard</string>
-    <string name="title_person">Notifications</string>
+    <string name="app_name">RSSInBox</string>
+    <string name="title_inbox">Inbox</string>
+    <string name="title_discover">Discover</string>
+    <string name="title_person">Person</string>
 </resources>
