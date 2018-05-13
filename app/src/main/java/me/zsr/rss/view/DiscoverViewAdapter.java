@@ -10,11 +10,11 @@ import java.util.List;
 import me.zsr.rss.R;
 import me.zsr.rss.model.Discover;
 
-public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
+public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
     private List<Discover> mDiscoverList;
     private RecycleViewObserver mObserver;
 
-    public DiscoverAdapter(List<Discover> list, RecycleViewObserver observer) {
+    public DiscoverViewAdapter(List<Discover> list, RecycleViewObserver observer) {
         mDiscoverList = list;
         mObserver = observer;
     }

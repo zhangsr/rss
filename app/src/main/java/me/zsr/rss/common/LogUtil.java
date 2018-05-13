@@ -25,7 +25,7 @@ public class LogUtil {
     }
 
     /**
-     * Used for persistent log
+     * Used for debug temp log
      * @param msg
      */
     public static void d(String tag, String msg) {
@@ -35,7 +35,7 @@ public class LogUtil {
     }
 
     /**
-     * Used for temp log
+     * Used for persistent log
      * @param msg
      */
     public static void i(String msg) {
@@ -59,8 +59,12 @@ public class LogUtil {
      * @param msg
      */
     public static void e(String msg) {
+        e(DEFAULT_TAG, getInformation(msg));
+    }
+
+    public static void e(String tag, String msg) {
         if (LOGE_DEBUG && sLogAll) {
-            Log.e(DEFAULT_TAG, getInformation(msg));
+            Log.e(tag, getInformation(msg));
         }
     }
 

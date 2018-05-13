@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import me.zsr.rss.view.DiscoverPage;
+import me.zsr.rss.view.DiscoverView;
 import me.zsr.rss.view.IPage;
 import me.zsr.rss.view.InboxPage;
 import me.zsr.rss.view.PersonPage;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private IPage getDiscoverPage() {
         if (mDiscoverPage == null) {
-            mDiscoverPage = new DiscoverPage(this);
+            mDiscoverPage = new DiscoverView(this);
         }
         return mDiscoverPage;
     }

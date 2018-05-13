@@ -4,10 +4,11 @@ import android.app.Application;
 
 import me.zsr.rss.common.LogUtil;
 import me.zsr.rss.common.ThreadManager;
+import me.zsr.rss.common.VolleySingleton;
 
 /**
  * Architecture : MVVM
- * Network :
+ * Network : Volley
  * Image Loading :
  * ORM : GreenDao
  * JSON Parser : Gson
@@ -22,6 +23,7 @@ public class App extends Application {
         super.onCreate();
         // No dependence
         LogUtil.enable(BuildConfig.DEBUG);
+        VolleySingleton.init(this);
 
         ThreadManager.init();
 

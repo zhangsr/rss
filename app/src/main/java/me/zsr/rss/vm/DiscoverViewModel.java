@@ -1,7 +1,10 @@
 package me.zsr.rss.vm;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,8 +17,12 @@ import java.util.List;
 
 import me.zsr.rss.common.FileUtil;
 import me.zsr.rss.common.LogUtil;
+import me.zsr.rss.common.SubscriptionRequest;
 import me.zsr.rss.common.ThreadManager;
+import me.zsr.rss.common.VolleySingleton;
 import me.zsr.rss.model.Discover;
+import me.zsr.rss.model.Subscription;
+import me.zsr.rss.model.SubscriptionModel;
 
 public class DiscoverViewModel {
     private ViewModelObserver<Discover> mObserver;
@@ -61,5 +68,42 @@ public class DiscoverViewModel {
                 }
             }
         });
+    }
+
+    private void addSubscriptionByUrl(final String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        VolleySingleton.getInstance().getRequestQueue().cancelAll(this);
+        SubscriptionRequest request = new SubscriptionRequest(url, new Response.Listener<Subscription>() {
+            @Override
+            public void onResponse(Subscription response) {
+                LogUtil.i("onResponse=" + url);
+                if (response == null) {
+                    return;
+                }
+                response.setUrl(url);
+                SubscriptionModel.getInstance().insert(response);
+                // TODO: 2018/5/13 reload inbox
+                // TODO: 2018/5/13 fetch this subscription
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO: 2/24/17 optimize retry by adding "feed" suffix
+                LogUtil.i("onErrorResponse=" + url);
+            }
+        });
+        request.setTag(this);
+        LogUtil.i("request=" + url);
+        VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
+    public void onItemClick(List<Discover> dataList, int pos) {
+        addSubscriptionByUrl(dataList.get(pos).getUrl());
+    }
+
+    public boolean onItemLongClick(List<Discover> dataList, int pos) {
+        return false;
     }
 }

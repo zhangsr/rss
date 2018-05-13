@@ -12,13 +12,13 @@ import me.zsr.rss.model.Discover;
 import me.zsr.rss.vm.DiscoverViewModel;
 import me.zsr.rss.vm.ViewModelObserver;
 
-public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, RecycleViewObserver<Discover> {
+public class DiscoverView extends IPage implements ViewModelObserver<Discover>, RecycleViewObserver<Discover> {
     private DiscoverViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public DiscoverPage(@NonNull Context context) {
+    public DiscoverView(@NonNull Context context) {
         super(context);
 
         mRecyclerView = new RecyclerView(context);
@@ -32,17 +32,17 @@ public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, 
     @Override
     public void onDataChanged(List<Discover> dataList) {
         // TODO: 2018/5/12 new every time?
-        mAdapter = new DiscoverAdapter(dataList, this);
+        mAdapter = new DiscoverViewAdapter(dataList, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void onItemClick(View view, List<Discover> dataList, int pos) {
-
+        mViewModel.onItemClick(dataList, pos);
     }
 
     @Override
     public boolean onItemLongClick(View view, List<Discover> dataList, int pos) {
-        return false;
+        return mViewModel.onItemLongClick(dataList, pos);
     }
 }
