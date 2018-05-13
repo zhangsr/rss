@@ -9,12 +9,12 @@ import android.widget.FrameLayout;
 
 import me.zsr.rss.view.DiscoverView;
 import me.zsr.rss.view.IPage;
-import me.zsr.rss.view.InboxPage;
+import me.zsr.rss.view.SubscriptionView;
 import me.zsr.rss.view.PersonPage;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private FrameLayout mPageContainer;
-    private IPage mInboxPage;
+    private IPage mSubscriptionPage;
     private IPage mDiscoverPage;
     private IPage mPersonPage;
 
@@ -27,14 +27,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        setupInitPage();
+    }
+
+    public void setupInitPage() {
+        mPageContainer.addView(getSubscriptionPage());
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         IPage targetPage = null;
         switch (item.getItemId()) {
-            case R.id.navigation_inbox:
-                targetPage = getInboxPage();
+            case R.id.navigation_subscription:
+                targetPage = getSubscriptionPage();
                 break;
             case R.id.navigation_discover:
                 targetPage = getDiscoverPage();
@@ -52,11 +58,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    private IPage getInboxPage() {
-        if (mInboxPage == null) {
-            mInboxPage = new InboxPage(this);
+    private IPage getSubscriptionPage() {
+        if (mSubscriptionPage == null) {
+            mSubscriptionPage = new SubscriptionView(this);
         }
-        return mInboxPage;
+        return mSubscriptionPage;
     }
 
     private IPage getDiscoverPage() {

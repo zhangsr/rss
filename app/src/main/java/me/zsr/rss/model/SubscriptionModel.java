@@ -28,6 +28,23 @@ public class SubscriptionModel extends BaseModel {
         insert(Arrays.asList(subscriptions));
     }
 
+    public void loadAll() {
+        ThreadManager.postInBackground(new Runnable() {
+            @Override
+            public void run() {
+                final List<Subscription> list = DBManager.getSubscriptionDao().queryBuilder().list();
+                ThreadManager.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSubscriptionList.clear();
+                        mSubscriptionList.addAll(list);
+                        notifyObservers(ModelAction.ADD, mSubscriptionList);
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     public List<ModelObserver> getObserverList() {
         return mObserverList;

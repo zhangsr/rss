@@ -196,4 +196,9 @@ public class Subscription {
         this.ext3 = ext3;
     }
 
+    public Subscription clone() {
+        Subscription subscription = new Subscription(id, key, title, iconUrl, url, time, siteUrl, desc,
+                category, sortid, totalCount, unreadCount, accountId, ext1, ext2, ext3);
+        return subscription;
+    }
 }

@@ -2,6 +2,6 @@ package me.zsr.rss.model;
 
 import java.util.List;
 
-public interface ModelObserver {
-    void onDataChanged(ModelAction action, List<?> dataList);
+public interface ModelObserver<T> {
+    void onDataChanged(ModelAction action, List<T> dataList);
 }
