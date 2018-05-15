@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import me.zsr.rss.model.Subscription;
 import me.zsr.rss.vm.SubscriptionViewModel;
 import me.zsr.rss.vm.ViewModelObserver;
 
-public class SubscriptionView extends IPage implements ViewModelObserver<Subscription>, RecycleViewObserver<Subscription> {
+public class SubscriptionView extends FrameLayout implements ViewModelObserver<Subscription>, RecycleViewObserver<Subscription> {
     private SubscriptionViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

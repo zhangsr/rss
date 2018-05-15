@@ -12,13 +12,13 @@ import me.zsr.rss.model.Discover;
 import me.zsr.rss.vm.DiscoverViewModel;
 import me.zsr.rss.vm.ViewModelObserver;
 
-public class DiscoverView extends IPage implements ViewModelObserver<Discover>, RecycleViewObserver<Discover> {
+public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, RecycleViewObserver<Discover> {
     private DiscoverViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public DiscoverView(@NonNull Context context) {
+    public DiscoverPage(@NonNull Context context) {
         super(context);
 
         mRecyclerView = new RecyclerView(context);

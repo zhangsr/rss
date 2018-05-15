@@ -7,14 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import me.zsr.rss.view.DiscoverView;
+import me.zsr.rss.view.DiscoverPage;
 import me.zsr.rss.view.IPage;
-import me.zsr.rss.view.SubscriptionView;
+import me.zsr.rss.view.InboxPage;
 import me.zsr.rss.view.PersonPage;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private FrameLayout mPageContainer;
-    private IPage mSubscriptionPage;
+    private IPage mInboxPage;
     private IPage mDiscoverPage;
     private IPage mPersonPage;
 
@@ -32,15 +32,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void setupInitPage() {
-        mPageContainer.addView(getSubscriptionPage());
+        mPageContainer.addView(getInboxPage());
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         IPage targetPage = null;
         switch (item.getItemId()) {
-            case R.id.navigation_subscription:
-                targetPage = getSubscriptionPage();
+            case R.id.navigation_inbox:
+                targetPage = getInboxPage();
                 break;
             case R.id.navigation_discover:
                 targetPage = getDiscoverPage();
@@ -58,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    private IPage getSubscriptionPage() {
-        if (mSubscriptionPage == null) {
-            mSubscriptionPage = new SubscriptionView(this);
+    private IPage getInboxPage() {
+        if (mInboxPage == null) {
+            mInboxPage = new InboxPage(this);
         }
-        return mSubscriptionPage;
+        return mInboxPage;
     }
 
     private IPage getDiscoverPage() {
         if (mDiscoverPage == null) {
-            mDiscoverPage = new DiscoverView(this);
+            mDiscoverPage = new DiscoverPage(this);
         }
         return mDiscoverPage;
     }
