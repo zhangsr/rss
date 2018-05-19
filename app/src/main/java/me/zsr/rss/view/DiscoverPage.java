@@ -37,6 +37,11 @@ public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, 
     }
 
     @Override
+    public void onRequestUpdate() {
+
+    }
+
+    @Override
     public void onItemClick(View view, List<Discover> dataList, int pos) {
         mViewModel.onItemClick(dataList, pos);
     }

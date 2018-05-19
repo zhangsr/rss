@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import me.zsr.rss.ImageLoaderManager;
 import me.zsr.rss.R;
 import me.zsr.rss.model.Subscription;
 
@@ -31,11 +34,11 @@ public class SubscriptionViewHolder extends RecyclerView.ViewHolder {
         mItemView.setOnLongClickListener(longClickListener);
         mNameTextView.setText(subscription.getTitle());
         mNameTextView.setSingleLine();
-//        ImageLoader.getInstance().displayImage(discover.getIconUrl(), mIconImageView, ImageLoaderManager.getSubsciptionIconOptions(mItemView.getContext()));
-//        if (discover.getUnreadCount() <= 0) {
-//            mCountTextView.setText("");
-//        } else {
-//            mCountTextView.setText(String.valueOf(discover.getUnreadCount()));
-//        }
+        ImageLoader.getInstance().displayImage(subscription.getIconUrl(), mIconImageView, ImageLoaderManager.getSubscriptionIconOptions(mItemView.getContext()));
+        if (subscription.getUnreadCount() <= 0) {
+            mCountTextView.setText("");
+        } else {
+            mCountTextView.setText(String.valueOf(subscription.getUnreadCount()));
+        }
     }
 }

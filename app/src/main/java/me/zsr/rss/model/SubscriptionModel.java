@@ -7,21 +7,16 @@ import java.util.List;
 import me.zsr.rss.DBManager;
 import me.zsr.rss.common.ThreadManager;
 
-public class SubscriptionModel extends BaseModel {
+public class SubscriptionModel extends BaseModel implements ModelObserver<Article> {
     private static List<ModelObserver> mObserverList = new ArrayList<>();
-    private static SubscriptionModel sLocalModel;
-    protected static List<Subscription> mSubscriptionList = new ArrayList<>();
+    private static SubscriptionModel sInstance;
 
     public static SubscriptionModel getInstance() {
-        if (sLocalModel == null) {
-            sLocalModel = new SubscriptionModel();
+        if (sInstance == null) {
+            sInstance = new SubscriptionModel();
+            ArticleModel.getInstance().registerObserver(sInstance);
         }
-        return sLocalModel;
-    }
-
-    @Override
-    public List<Subscription> getDataSource() {
-        return mSubscriptionList;
+        return sInstance;
     }
 
     public void insert(Subscription... subscriptions) {
@@ -36,13 +31,18 @@ public class SubscriptionModel extends BaseModel {
                 ThreadManager.post(new Runnable() {
                     @Override
                     public void run() {
-                        mSubscriptionList.clear();
-                        mSubscriptionList.addAll(list);
-                        notifyObservers(ModelAction.ADD, mSubscriptionList);
+                        notifyObservers(ModelAction.ADD, list);
                     }
                 });
             }
         });
+    }
+
+    public void fetchAll() {
+        final List<Subscription> list = DBManager.getSubscriptionDao().queryBuilder().list();
+        for (Subscription subscription : list) {
+            ArticleModel.getInstance().requestNetwork(subscription);
+        }
     }
 
     @Override
@@ -58,11 +58,48 @@ public class SubscriptionModel extends BaseModel {
                 ThreadManager.post(new Runnable() {
                     @Override
                     public void run() {
-                        mSubscriptionList.addAll(subscriptions);
                         notifyObservers(ModelAction.ADD, subscriptions);
                     }
                 });
             }
         });
+    }
+
+    @Override
+    public void onDataChanged(ModelAction action, List<Article> dataList) {
+        switch (action) {
+            case ADD:
+                List<Long> subscriptionIdList = new ArrayList<>();
+                for (Article article : dataList) {
+                    long subscriptionId = article.getSubscriptionId();
+                    boolean contain = false;
+                    for (Long id : subscriptionIdList) {
+                        if (id == subscriptionId) {
+                            contain = true;
+                        }
+                    }
+                    if (!contain) {
+                        subscriptionIdList.add(subscriptionId);
+                    }
+                }
+
+                List<Subscription> updatedList = new ArrayList<>();
+                for (Long id : subscriptionIdList) {
+                    Subscription subscription = DBManager.getSubscriptionDao().queryBuilder().where(SubscriptionDao.Properties.Id.eq(id)).unique();
+                    final long totalCount = DBManager.getArticleDao().queryBuilder().where(
+                            ArticleDao.Properties.SubscriptionId.eq(id)).count();
+                    final long unreadCount = DBManager.getArticleDao().queryBuilder().where(
+                            ArticleDao.Properties.SubscriptionId.eq(id),
+                            ArticleDao.Properties.Read.eq(false)).count();
+                    // TODO: 2018/5/19 update other params if any
+                    subscription.setTotalCount(totalCount);
+                    subscription.setUnreadCount(unreadCount);
+                    DBManager.getSubscriptionDao().insertOrReplace(subscription);
+                    updatedList.add(subscription);
+                }
+
+                notifyObservers(ModelAction.MODIFY, updatedList);
+                break;
+        }
     }
 }

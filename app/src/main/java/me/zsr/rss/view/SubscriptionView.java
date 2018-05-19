@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ public class SubscriptionView extends FrameLayout implements ViewModelObserver<S
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private SubscriptionViewCallback mUICallback;
 
-    public SubscriptionView(@NonNull Context context) {
+    public SubscriptionView(@NonNull Context context, SubscriptionViewCallback callback) {
         super(context);
+        mUICallback = callback;
 
         mRecyclerView = new RecyclerView(context);
         mLayoutManager = new LinearLayoutManager(context);
@@ -38,8 +41,14 @@ public class SubscriptionView extends FrameLayout implements ViewModelObserver<S
     }
 
     @Override
+    public void onRequestUpdate() {
+        Toast.makeText(getContext(), "onRequestUpdate", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onItemClick(View view, List<Subscription> dataList, int pos) {
         mViewModel.onItemClick(dataList, pos);
+        mUICallback.onSubscriptionClick(dataList.get(pos));
     }
 
     @Override

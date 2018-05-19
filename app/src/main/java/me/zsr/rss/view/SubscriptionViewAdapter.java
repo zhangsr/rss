@@ -45,6 +45,6 @@ public class SubscriptionViewAdapter extends RecyclerView.Adapter<SubscriptionVi
 
     @Override
     public int getItemCount() {
-        return mSubscriptionList.size();
+        return mSubscriptionList == null ? 0 : mSubscriptionList.size();
     }
 }

@@ -6,7 +6,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import me.zsr.rss.common.ThreadManager;
 import me.zsr.rss.view.DiscoverPage;
 import me.zsr.rss.view.IPage;
 import me.zsr.rss.view.InboxPage;
@@ -17,6 +19,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private IPage mInboxPage;
     private IPage mDiscoverPage;
     private IPage mPersonPage;
+    private IPage mCurrentPage;
+
+    private boolean mCanBackExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +37,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void setupInitPage() {
+        mCurrentPage = getInboxPage();
         mPageContainer.addView(getInboxPage());
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        IPage targetPage = null;
         switch (item.getItemId()) {
             case R.id.navigation_inbox:
-                targetPage = getInboxPage();
+                mCurrentPage = getInboxPage();
                 break;
             case R.id.navigation_discover:
-                targetPage = getDiscoverPage();
+                mCurrentPage = getDiscoverPage();
                 break;
             case R.id.navigation_person:
-                targetPage = getPersonPage();
+                mCurrentPage = getPersonPage();
                 break;
         }
 
-        if (targetPage != null) {
+        if (mCurrentPage != null) {
             mPageContainer.removeAllViews();
-            mPageContainer.addView(targetPage);
+            mPageContainer.addView(mCurrentPage);
             return true;
         }
         return false;
@@ -76,5 +81,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mPersonPage = new PersonPage(this);
         }
         return mPersonPage;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mCurrentPage.handleBackPress()) {
+            if (mCanBackExit) {
+                super.onBackPressed();
+            } else {
+                mCanBackExit = true;
+                Toast.makeText(this, R.string.back_exit_hint, Toast.LENGTH_SHORT).show();
+                ThreadManager.postDelay(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCanBackExit = false;
+                    }
+                }, 5000);
+            }
+        }
     }
 }

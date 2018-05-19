@@ -175,4 +175,9 @@ public class Article {
     public void setExt3(String ext3) {
         this.ext3 = ext3;
     }
+
+    public Article clone() {
+        return new Article(id, title, link, description, read, trash, content, subscriptionId, published,
+                favorite, ext1, ext2, ext3);
+    }
 }

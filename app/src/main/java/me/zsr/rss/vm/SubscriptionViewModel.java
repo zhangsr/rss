@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.zsr.rss.common.LogUtil;
+import me.zsr.rss.common.ThreadManager;
 import me.zsr.rss.model.ModelAction;
 import me.zsr.rss.model.ModelObserver;
 import me.zsr.rss.model.Subscription;
@@ -24,10 +25,22 @@ public class SubscriptionViewModel implements ModelObserver<Subscription> {
 
         SubscriptionModel.getInstance().registerObserver(this);
         initLoad();
+
+        ThreadManager.postDelay(new Runnable() {
+            @Override
+            public void run() {
+                requestUpdate();
+            }
+        }, 3000);
     }
 
     private void initLoad() {
         SubscriptionModel.getInstance().loadAll();
+    }
+
+    private void requestUpdate() {
+        mObserver.onRequestUpdate();
+        SubscriptionModel.getInstance().fetchAll();
     }
 
     public void onItemClick(List<Subscription> dataList, int pos) {
@@ -48,6 +61,22 @@ public class SubscriptionViewModel implements ModelObserver<Subscription> {
                 }
                 mObserver.onDataChanged(mLiveDataList);
                 break;
+            case MODIFY:
+                for (Subscription modifiedSubscription : dataList) {
+                    for (Subscription liveSubscription : mLiveDataList) {
+                        if (modifiedSubscription.getId().equals(liveSubscription.getId())) {
+                            update(liveSubscription, modifiedSubscription);
+                        }
+                    }
+                }
+                mObserver.onDataChanged(mLiveDataList);
+                break;
         }
+    }
+
+    private void update(Subscription oldS, Subscription newS) {
+        // TODO: 2018/5/19 update more
+        oldS.setUnreadCount(newS.getUnreadCount());
+        oldS.setTotalCount(newS.getTotalCount());
     }
 }

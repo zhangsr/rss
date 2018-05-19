@@ -24,6 +24,7 @@ public class App extends Application {
         // No dependence
         LogUtil.enable(BuildConfig.DEBUG);
         VolleySingleton.init(this);
+        ImageLoaderManager.init(this);
 
         ThreadManager.init();
 

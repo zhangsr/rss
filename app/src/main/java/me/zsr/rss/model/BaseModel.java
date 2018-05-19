@@ -7,8 +7,6 @@ import me.zsr.rss.common.ThreadManager;
 
 public abstract class BaseModel {
 
-    public abstract List<?> getDataSource();
-
     public void registerObserver(ModelObserver observer) {
         LOG_MA("registerObserver " + observer + " to " + getClass().getSimpleName());
         getObserverList().add(observer);

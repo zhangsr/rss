@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">RSSInBox</string>
-    <string name="title_inbox">Inbox</string>
-    <string name="title_discover">Discover</string>
-    <string name="title_person">Person</string>
+    <string name="app_name">订阅盒子</string>
+    <string name="title_inbox">订阅</string>
+    <string name="title_discover">发现</string>
+    <string name="title_person">我的</string>
+    <string name="yestoday">昨天</string>
+    <string name="before_yestoday">前天</string>
+    <string name="back_exit_hint">再点返回退出</string>
 </resources>
