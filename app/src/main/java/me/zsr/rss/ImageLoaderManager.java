@@ -36,7 +36,7 @@ public class ImageLoaderManager {
     }
 
     public static DisplayImageOptions getSubscriptionIconOptions(Context context) {
-        Drawable defaultDrawable = context.getResources().getDrawable(R.drawable.ic_rss_feed_black_24dp);
+        Drawable defaultDrawable = context.getResources().getDrawable(R.drawable.round_rss_feed_black_24);
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(defaultDrawable)

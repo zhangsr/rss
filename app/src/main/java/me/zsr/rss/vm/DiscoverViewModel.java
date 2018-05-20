@@ -100,10 +100,13 @@ public class DiscoverViewModel {
     }
 
     public void onItemClick(List<Discover> dataList, int pos) {
-        addSubscriptionByUrl(dataList.get(pos).getUrl());
     }
 
     public boolean onItemLongClick(List<Discover> dataList, int pos) {
         return false;
+    }
+
+    public void OnItemAddClick(List<Discover> dataList, int pos) {
+        addSubscriptionByUrl(dataList.get(pos).getUrl());
     }
 }

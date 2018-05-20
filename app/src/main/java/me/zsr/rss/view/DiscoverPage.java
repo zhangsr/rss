@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import me.zsr.rss.model.Discover;
 import me.zsr.rss.vm.DiscoverViewModel;
 import me.zsr.rss.vm.ViewModelObserver;
 
-public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, RecycleViewObserver<Discover> {
+public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, DiscoverRVObserver {
     private DiscoverViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -42,12 +43,18 @@ public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, 
     }
 
     @Override
-    public void onItemClick(View view, List<Discover> dataList, int pos) {
-        mViewModel.onItemClick(dataList, pos);
+    public boolean onItemLongClick(View view, List<Discover> dataList, int pos) {
+        return mViewModel.onItemLongClick(dataList, pos);
     }
 
     @Override
-    public boolean onItemLongClick(View view, List<Discover> dataList, int pos) {
-        return mViewModel.onItemLongClick(dataList, pos);
+    public void onAddButtonClick(View view, List<Discover> dataList, int pos) {
+        mViewModel.OnItemAddClick(dataList, pos);
+        Toast.makeText(getContext(), "成功订阅 " + dataList.get(pos).getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(View view, List<Discover> dataList, int pos) {
+
     }
 }

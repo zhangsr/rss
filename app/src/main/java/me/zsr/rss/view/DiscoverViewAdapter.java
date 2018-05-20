@@ -12,9 +12,9 @@ import me.zsr.rss.model.Discover;
 
 public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
     private List<Discover> mDiscoverList;
-    private RecycleViewObserver mObserver;
+    private DiscoverRVObserver mObserver;
 
-    public DiscoverViewAdapter(List<Discover> list, RecycleViewObserver observer) {
+    public DiscoverViewAdapter(List<Discover> list, DiscoverRVObserver observer) {
         mDiscoverList = list;
         mObserver = observer;
     }
@@ -39,6 +39,11 @@ public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewHolder
             @Override
             public boolean onLongClick(View v) {
                 return mObserver.onItemLongClick(v, mDiscoverList, position);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mObserver.onAddButtonClick(v, mDiscoverList, position);
             }
         });
     }

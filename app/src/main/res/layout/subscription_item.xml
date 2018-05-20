@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/subscription_icon"
-        android:src="@drawable/ic_rss_feed_black_24dp"
+        android:src="@drawable/round_rss_feed_black_24"
         android:alpha="0.87"
         android:layout_width="24dp"
         android:layout_height="24dp"/>
