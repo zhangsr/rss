@@ -11,4 +11,10 @@
     <string name="unfavorited">取消收藏</string>
     <string name="link">打开原文链接</string>
     <string name="share">分享</string>
+
+    <string name="font">字体</string>
+    <string name="reading_font_size">阅读字体大小</string>
+    <string name="small">小</string>
+    <string name="big">大</string>
+    <string name="medium">中</string>
 </resources>
