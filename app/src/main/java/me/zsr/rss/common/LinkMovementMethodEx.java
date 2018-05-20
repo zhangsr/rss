@@ -1,9 +1,6 @@
 package me.zsr.rss.common;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
@@ -12,7 +9,8 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 public class LinkMovementMethodEx extends LinkMovementMethod {
-    static LinkMovementMethodEx sInstance;
+    private static LinkMovementMethodEx sInstance;
+    private OnPicClickListener mPicClickListener;
 
     public static LinkMovementMethodEx getInstance() {
         if (sInstance == null) {
@@ -46,7 +44,9 @@ public class LinkMovementMethodEx extends LinkMovementMethod {
 
             if (images.length != 0) {
                 if (action == MotionEvent.ACTION_UP) {
-                    onClick(widget, images[0]);
+                    if (mPicClickListener != null) {
+                        mPicClickListener.onPicClick(images[0].getSource());
+                    }
                 }
                 return true;
             }
@@ -61,15 +61,11 @@ public class LinkMovementMethodEx extends LinkMovementMethod {
         return false;
     }
 
-    private void onClick(TextView widget, ImageSpan imageSpan) {
-        // TODO: 2018/5/15
-//        Activity activity = (Activity) widget.getContext();
-//        Intent intent = new Intent(activity, PicActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(Constants.KEY_BUNDLE_IMAGE_URL, imageSpan.getSource());
-//        intent.putExtras(bundle);
-//        activity.startActivity(intent);
-//
-//        AnimationHelper.setFadeTransition(activity);
+    public interface OnPicClickListener {
+        void onPicClick(String url);
+    }
+
+    public void setOnPicClickListener(OnPicClickListener listener) {
+        mPicClickListener = listener;
     }
 }

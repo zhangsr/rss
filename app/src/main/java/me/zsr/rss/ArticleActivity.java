@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import me.zsr.rss.common.AnimationHelper;
 import me.zsr.rss.common.DateUtil;
 import me.zsr.rss.common.IntentUtil;
+import me.zsr.rss.common.LinkMovementMethodEx;
 import me.zsr.rss.common.SPManager;
 import me.zsr.rss.common.StringUtil;
 import me.zsr.rss.common.ThreadManager;
@@ -33,7 +35,7 @@ import static me.zsr.rss.Constants.FONT_SIZE_SMALL;
 import static me.zsr.rss.Constants.KEY_FONT_SIZE;
 
 // TODO: 10/30/16 to be modularity
-public class ArticleActivity extends AppCompatActivity implements View.OnClickListener {
+public class ArticleActivity extends AppCompatActivity implements View.OnClickListener, LinkMovementMethodEx.OnPicClickListener {
     private Toolbar mToolbar;
     private ScrollView mScrollView;
     private HtmlTextView mContentTextView;
@@ -119,6 +121,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                         getResources().getDimension(R.dimen.text_size_big));
                 break;
         }
+        mContentTextView.setOnPicClickListener(this);
 
         mPreviousBtn = findViewById(R.id.previous_btn);
         mPreviousBtn.setOnClickListener(this);
@@ -229,5 +232,16 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                 mIsClickEnabled = true;
             }
         }, 500);
+    }
+
+    @Override
+    public void onPicClick(String url) {
+        Intent intent = new Intent(this, PicActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_BUNDLE_PIC_URL, url);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+        AnimationHelper.setFadeTransition(this);
     }
 }

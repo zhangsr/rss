@@ -29,7 +29,6 @@ import java.util.Scanner;
 import me.zsr.rss.common.LinkMovementMethodEx;
 
 public class HtmlTextView extends JellyBeanSpanFixTextView {
-
     public static final String TAG = "HtmlTextView";
     public static final boolean DEBUG = false;
 
@@ -160,4 +159,7 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
 //        return res;
 //    }
 
+    public void setOnPicClickListener(LinkMovementMethodEx.OnPicClickListener listener) {
+        LinkMovementMethodEx.getInstance().setOnPicClickListener(listener);
+    }
 }

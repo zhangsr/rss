@@ -8,7 +8,7 @@ public class Constants {
     public static final int FONT_SIZE_BIG = 2;
     public static final String KEY_BUNDLE_ARTICLE_ID = "article_id";
     public static final String KEY_BUNDLE_ARTICLE_INDEX = "article_index";
-    public static final String KEY_BUNDLE_IMAGE_URL = "image_url";
+    public static final String KEY_BUNDLE_PIC_URL = "pic_url";
 
     public static final String PACKAGE_NAME = "me.zsr.rss";
 }
