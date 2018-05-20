@@ -2,6 +2,8 @@ package me.zsr.rss.view;
 
 import android.content.Context;
 
+import java.util.List;
+
 import me.zsr.rss.common.HtmlImageGetterEx;
 import me.zsr.rss.common.StringUtil;
 import me.zsr.rss.htmltextview.HtmlTextView;
@@ -35,5 +37,16 @@ public class ArticleUtil {
             return article.getContent();
         }
         return article.getDescription();
+    }
+
+    public static long[] getIdArray(List<Article> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return null;
+        }
+        long[] idArray = new long[dataList.size()];
+        for (int i = 0; i < idArray.length; i++) {
+            idArray[i] = dataList.get(i).getId();
+        }
+        return idArray;
     }
 }

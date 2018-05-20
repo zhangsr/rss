@@ -56,4 +56,17 @@ public class ArticleListViewModel implements ModelObserver<Article> {
     public void onDataChanged(ModelAction action, List<Article> dataList) {
 
     }
+
+    public void onItemClick(List<Article> dataList, int pos) {
+        if (dataList == null || pos >= dataList.size()) {
+            return;
+        }
+
+        Article data = dataList.get(pos);
+        if (!data.getRead()) {
+            ArticleModel.getInstance().markAllRead(true, data);
+        }
+
+    }
+
 }

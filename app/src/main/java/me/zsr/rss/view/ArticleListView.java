@@ -54,7 +54,8 @@ public class ArticleListView extends FrameLayout implements ViewModelObserver<Ar
 
     @Override
     public void onItemClick(View view, List<Article> dataList, int pos) {
-        mUICallback.onArticleClick(dataList.get(pos));
+        mViewModel.onItemClick(dataList, pos);
+        mUICallback.onArticleClick(dataList, pos);
     }
 
     @Override

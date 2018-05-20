@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import me.zsr.rss.DBManager;
@@ -84,6 +85,43 @@ public class ArticleModel extends BaseModel {
                     DBManager.getArticleDao().insertInTx(newArticleList);
                     notifyObservers(ModelAction.ADD, newArticleList);
                 }
+            }
+        });
+    }
+
+    public void markAllRead(boolean read, Article... articles) {
+        if (articles == null) {
+            return;
+        }
+        List<Article> articleList = Arrays.asList(articles);
+        markAllRead(read, articleList);
+    }
+
+    public void markAllRead(final boolean read, final List<Article> articleList) {
+        LOG_MA("markAllRead");
+        if (articleList == null || articleList.size() == 0) {
+            return;
+        }
+        ThreadManager.postInBackground(new Runnable() {
+            @Override
+            public void run() {
+                for (Article article : articleList) {
+                    article.setRead(read);
+                }
+                DBManager.getArticleDao().updateInTx(articleList);
+                notifyObservers(ModelAction.MODIFY, articleList);
+            }
+        });
+    }
+
+    public void saveArticle(final Article article) {
+        if (article == null) {
+            return;
+        }
+        ThreadManager.postInBackground(new Runnable() {
+            @Override
+            public void run() {
+                DBManager.getArticleDao().update(article);
             }
         });
     }

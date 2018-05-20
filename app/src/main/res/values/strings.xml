@@ -6,4 +6,9 @@
     <string name="yestoday">昨天</string>
     <string name="before_yestoday">前天</string>
     <string name="back_exit_hint">再点返回退出</string>
+    <string name="fav">收藏</string>
+    <string name="favorited">已收藏</string>
+    <string name="unfavorited">取消收藏</string>
+    <string name="link">打开原文链接</string>
+    <string name="share">分享</string>
 </resources>

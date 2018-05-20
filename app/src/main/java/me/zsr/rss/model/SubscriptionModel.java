@@ -68,7 +68,10 @@ public class SubscriptionModel extends BaseModel implements ModelObserver<Articl
     @Override
     public void onDataChanged(ModelAction action, List<Article> dataList) {
         switch (action) {
+            // 刷新添加
             case ADD:
+            // 已读修改
+            case MODIFY:
                 List<Long> subscriptionIdList = new ArrayList<>();
                 for (Article article : dataList) {
                     long subscriptionId = article.getSubscriptionId();

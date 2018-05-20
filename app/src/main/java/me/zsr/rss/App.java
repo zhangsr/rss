@@ -3,6 +3,7 @@ package me.zsr.rss;
 import android.app.Application;
 
 import me.zsr.rss.common.LogUtil;
+import me.zsr.rss.common.SPManager;
 import me.zsr.rss.common.ThreadManager;
 import me.zsr.rss.common.VolleySingleton;
 
@@ -21,10 +22,18 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // No dependence
+
+        //**************** No dependence start *****************
+
         LogUtil.enable(BuildConfig.DEBUG);
+
         VolleySingleton.init(this);
+
         ImageLoaderManager.init(this);
+
+        SPManager.init(this);
+
+        //**************** No dependence end *****************
 
         ThreadManager.init();
 

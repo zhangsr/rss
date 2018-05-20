@@ -1,11 +1,15 @@
 package me.zsr.rss.common;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
     /**
      * @see <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC 822</a>
      */
@@ -38,5 +42,28 @@ public class DateUtil {
         cal1.setTime(date1);
         cal2.setTime(date2);
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+    }
+
+    public static CharSequence formatDate(Context context, Long time) {
+        Date date = new Date(time);
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        calendar.add(Calendar.DATE, -1);
+        Date yestoday = calendar.getTime();
+        calendar.add(Calendar.DATE, -1);
+        Date beforeYestoday = calendar.getTime();
+        if (isSameDay(date, today)) {
+            return "今天";
+        } else if (isSameDay(date, yestoday)) {
+            return "昨天";
+        } else if (isSameDay(date, beforeYestoday)) {
+            return "前天";
+        } else {
+            return DateFormat.format("yyyy年MM月dd日", date);
+        }
+    }
+
+    public static CharSequence formatTime(Long time) {
+        return TIME_FORMAT.format(new Date(time));
     }
 }
