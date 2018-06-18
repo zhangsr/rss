@@ -4,10 +4,10 @@ import android.content.Context;
 
 import java.util.List;
 
+import me.zsr.bean.Article;
+import me.zsr.common.StringUtil;
 import me.zsr.rss.common.HtmlImageGetterEx;
-import me.zsr.rss.common.StringUtil;
 import me.zsr.rss.htmltextview.HtmlTextView;
-import me.zsr.rss.model.Article;
 
 public class ArticleUtil {
 

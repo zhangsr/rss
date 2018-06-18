@@ -9,9 +9,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import me.zsr.rss.model.Discover;
-import me.zsr.rss.vm.DiscoverViewModel;
-import me.zsr.rss.vm.ViewModelObserver;
+import me.zsr.bean.Discover;
+import me.zsr.viewmodel.DiscoverViewModel;
+import me.zsr.viewmodel.ViewModelObserver;
 
 public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, DiscoverRVObserver {
     private DiscoverViewModel mViewModel;

@@ -2,6 +2,8 @@ package me.zsr.rss.common;
 
 import org.jsoup.Jsoup;
 
+import me.zsr.common.StringUtil;
+
 public class HtmlUtil {
 
     public static String getShrinkDesc(String originDesc) {

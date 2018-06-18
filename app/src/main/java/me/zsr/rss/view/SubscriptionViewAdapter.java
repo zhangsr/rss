@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import me.zsr.bean.Subscription;
 import me.zsr.rss.R;
-import me.zsr.rss.model.Subscription;
 
 public class SubscriptionViewAdapter extends RecyclerView.Adapter<SubscriptionViewHolder> {
     private List<Subscription> mSubscriptionList;

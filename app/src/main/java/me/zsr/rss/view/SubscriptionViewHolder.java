@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import me.zsr.bean.Subscription;
 import me.zsr.rss.ImageLoaderManager;
 import me.zsr.rss.R;
-import me.zsr.rss.model.Subscription;
 
 public class SubscriptionViewHolder extends RecyclerView.ViewHolder {
     private View mItemView;

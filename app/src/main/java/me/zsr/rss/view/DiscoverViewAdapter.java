@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import me.zsr.bean.Discover;
 import me.zsr.rss.R;
-import me.zsr.rss.model.Discover;
 
 public class DiscoverViewAdapter extends RecyclerView.Adapter<DiscoverViewHolder> {
     private List<Discover> mDiscoverList;

@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import me.zsr.bean.Article;
 import me.zsr.rss.R;
-import me.zsr.rss.model.Article;
 
 public class ArticleListViewAdapter extends RecyclerView.Adapter<ArticleListViewHolder>{
     private List<Article> mArticleList;

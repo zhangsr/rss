@@ -9,7 +9,7 @@ import android.view.View;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import me.zsr.rss.common.AnimationHelper;
+import me.zsr.common.AnimationHelper;
 
 // TODO: 3/19/17 Animate scale from origin location
 // TODO: 3/19/17 slide down to exit

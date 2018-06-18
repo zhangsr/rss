@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import me.zsr.common.SPManager;
 import me.zsr.rss.R;
-import me.zsr.rss.common.SPManager;
 
 import static me.zsr.rss.Constants.*;
 

@@ -14,19 +14,20 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import me.zsr.rss.common.AnimationHelper;
-import me.zsr.rss.common.DateUtil;
-import me.zsr.rss.common.IntentUtil;
+import me.zsr.bean.Article;
+import me.zsr.bean.ArticleDao;
+import me.zsr.bean.Subscription;
+import me.zsr.bean.SubscriptionDao;
+import me.zsr.common.AnimationHelper;
+import me.zsr.common.DateUtil;
+import me.zsr.common.IntentUtil;
+import me.zsr.common.SPManager;
+import me.zsr.common.StringUtil;
+import me.zsr.common.ThreadManager;
+import me.zsr.model.ArticleModel;
+import me.zsr.model.DBManager;
 import me.zsr.rss.common.LinkMovementMethodEx;
-import me.zsr.rss.common.SPManager;
-import me.zsr.rss.common.StringUtil;
-import me.zsr.rss.common.ThreadManager;
 import me.zsr.rss.htmltextview.HtmlTextView;
-import me.zsr.rss.model.Article;
-import me.zsr.rss.model.ArticleDao;
-import me.zsr.rss.model.ArticleModel;
-import me.zsr.rss.model.Subscription;
-import me.zsr.rss.model.SubscriptionDao;
 import me.zsr.rss.view.ArticleUtil;
 
 import static me.zsr.rss.Constants.FONT_SIZE_BIG;

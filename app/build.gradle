@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -23,9 +22,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
-    }
 }
 
 dependencies {
@@ -38,12 +34,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'org.greenrobot:greendao:3.2.0'
-    implementation 'commons-io:commons-io:2.6'
-    implementation 'com.android.volley:volley:1.1.0'
-    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation project(':viewmodel')
+    implementation project(':common')
+    implementation project(':bean')
+    // todo remove
+    implementation project(':model')
 }
 
-greendao {
-    schemaVersion 3
-}

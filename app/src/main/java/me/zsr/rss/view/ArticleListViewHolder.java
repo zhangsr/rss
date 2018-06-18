@@ -16,11 +16,11 @@ import org.jsoup.select.Elements;
 import java.util.Calendar;
 import java.util.Date;
 
+import me.zsr.bean.Article;
+import me.zsr.common.DateUtil;
+import me.zsr.common.StringUtil;
 import me.zsr.rss.R;
-import me.zsr.rss.common.DateUtil;
 import me.zsr.rss.common.HtmlUtil;
-import me.zsr.rss.common.StringUtil;
-import me.zsr.rss.model.Article;
 
 public class ArticleListViewHolder extends RecyclerView.ViewHolder {
     private View mItemView;

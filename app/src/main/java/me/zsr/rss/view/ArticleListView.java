@@ -9,10 +9,10 @@ import android.widget.FrameLayout;
 
 import java.util.List;
 
-import me.zsr.rss.model.Article;
-import me.zsr.rss.model.Subscription;
-import me.zsr.rss.vm.ArticleListViewModel;
-import me.zsr.rss.vm.ViewModelObserver;
+import me.zsr.bean.Article;
+import me.zsr.bean.Subscription;
+import me.zsr.viewmodel.ArticleListViewModel;
+import me.zsr.viewmodel.ViewModelObserver;
 
 public class ArticleListView extends FrameLayout implements ViewModelObserver<Article>, RecycleViewObserver<Article> {
     private RecyclerView mRecyclerView;

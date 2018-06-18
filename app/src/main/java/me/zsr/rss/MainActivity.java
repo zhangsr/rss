@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import me.zsr.rss.common.ThreadManager;
+import me.zsr.common.ThreadManager;
 import me.zsr.rss.view.DiscoverPage;
 import me.zsr.rss.view.IPage;
 import me.zsr.rss.view.InboxPage;

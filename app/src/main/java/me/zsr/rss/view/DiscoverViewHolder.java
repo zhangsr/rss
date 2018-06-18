@@ -6,8 +6,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import me.zsr.bean.Discover;
 import me.zsr.rss.R;
-import me.zsr.rss.model.Discover;
 
 public class DiscoverViewHolder extends RecyclerView.ViewHolder {
     private View mItemView;

@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import me.zsr.rss.model.Subscription;
-import me.zsr.rss.vm.SubscriptionViewModel;
-import me.zsr.rss.vm.ViewModelObserver;
+import me.zsr.bean.Subscription;
+import me.zsr.viewmodel.SubscriptionViewModel;
+import me.zsr.viewmodel.ViewModelObserver;
 
 public class SubscriptionView extends FrameLayout implements ViewModelObserver<Subscription>, RecycleViewObserver<Subscription> {
     private SubscriptionViewModel mViewModel;

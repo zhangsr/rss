@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import me.zsr.bean.Article;
+import me.zsr.bean.Subscription;
 import me.zsr.rss.ArticleActivity;
 import me.zsr.rss.Constants;
-import me.zsr.rss.model.Article;
-import me.zsr.rss.model.Subscription;
 
 public class InboxPage extends IPage implements SubscriptionViewCallback, ArticleListViewCallback {
     private SubscriptionView mSubscriptionView;

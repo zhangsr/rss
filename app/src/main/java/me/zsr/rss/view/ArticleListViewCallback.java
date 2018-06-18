@@ -2,7 +2,7 @@ package me.zsr.rss.view;
 
 import java.util.List;
 
-import me.zsr.rss.model.Article;
+import me.zsr.bean.Article;
 
 public interface ArticleListViewCallback {
     void onArticleClick(List<Article> articleList, int pos);

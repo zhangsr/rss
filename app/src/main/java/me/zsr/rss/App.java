@@ -2,10 +2,11 @@ package me.zsr.rss;
 
 import android.app.Application;
 
-import me.zsr.rss.common.LogUtil;
-import me.zsr.rss.common.SPManager;
-import me.zsr.rss.common.ThreadManager;
-import me.zsr.rss.common.VolleySingleton;
+import me.zsr.common.LogUtil;
+import me.zsr.common.SPManager;
+import me.zsr.common.ThreadManager;
+import me.zsr.common.VolleySingleton;
+import me.zsr.model.DBManager;
 
 /**
  * Architecture : MVVM
