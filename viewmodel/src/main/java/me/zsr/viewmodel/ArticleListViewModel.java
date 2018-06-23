@@ -11,16 +11,23 @@ import me.zsr.model.ArticleModel;
 import me.zsr.model.ModelAction;
 import me.zsr.model.ModelObserver;
 
-public class ArticleListViewModel implements ModelObserver<Article> {
+public class ArticleListViewModel {
     private ViewModelObserver<Article> mObserver;
     private List<Subscription> mSubscriptionList;
     private List<Article> mLiveDataList;
     private List<Article> mCacheDataList = new ArrayList<>();
     private boolean mIsLoading;
+    private ModelObserver<Article> mModelObserver = new ModelObserver<Article>() {
+        @Override
+        public void onDataChanged(ModelAction action, List<Article> dataList) {
+
+        }
+    };
 
     public ArticleListViewModel(ViewModelObserver<Article> observer, Subscription... subscriptions) {
         mObserver = observer;
         mSubscriptionList = Arrays.asList(subscriptions);
+        ArticleModel.getInstance().registerObserver(mModelObserver);
     }
 
     public void load() {
@@ -50,11 +57,6 @@ public class ArticleListViewModel implements ModelObserver<Article> {
                 });
             }
         });
-    }
-
-    @Override
-    public void onDataChanged(ModelAction action, List<Article> dataList) {
-
     }
 
     public void onItemClick(List<Article> dataList, int pos) {

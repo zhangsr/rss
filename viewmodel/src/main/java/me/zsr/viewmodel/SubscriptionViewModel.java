@@ -12,18 +12,43 @@ import me.zsr.model.ModelObserver;
 import me.zsr.bean.Subscription;
 import me.zsr.model.SubscriptionModel;
 
-public class SubscriptionViewModel implements ModelObserver<Subscription> {
+public class SubscriptionViewModel {
     private ViewModelObserver<Subscription> mObserver;
     private Context mContext;
     private List<Subscription> mLiveDataList;
     private List<Subscription> mCacheDataList = new ArrayList<>();
+    private ModelObserver<Subscription> mModelObserver = new ModelObserver<Subscription>() {
+        @Override
+        public void onDataChanged(ModelAction action, List<Subscription> dataList) {
+            switch (action) {
+                case ADD:
+                    mCacheDataList.addAll(dataList);
+                    mLiveDataList = new ArrayList<>();
+                    for (Subscription subscription : mCacheDataList) {
+                        mLiveDataList.add(subscription.clone());
+                    }
+                    mObserver.onDataChanged(mLiveDataList);
+                    break;
+                case MODIFY:
+                    for (Subscription modifiedSubscription : dataList) {
+                        for (Subscription liveSubscription : mLiveDataList) {
+                            if (modifiedSubscription.getId().equals(liveSubscription.getId())) {
+                                update(liveSubscription, modifiedSubscription);
+                            }
+                        }
+                    }
+                    mObserver.onDataChanged(mLiveDataList);
+                    break;
+            }
+        }
+    };
 
     public SubscriptionViewModel(ViewModelObserver<Subscription> observer, Context context) {
         LogUtil.i("create SubscriptionViewModel " + this);
         mObserver = observer;
         mContext = context;
 
-        SubscriptionModel.getInstance().registerObserver(this);
+        SubscriptionModel.getInstance().registerObserver(mModelObserver);
         initLoad();
 
         ThreadManager.postDelay(new Runnable() {
@@ -48,30 +73,6 @@ public class SubscriptionViewModel implements ModelObserver<Subscription> {
 
     public boolean onItemLongClick(List<Subscription> dataList, int pos) {
         return false;
-    }
-
-    @Override
-    public void onDataChanged(ModelAction action, List<Subscription> dataList) {
-        switch (action) {
-            case ADD:
-                mCacheDataList.addAll(dataList);
-                mLiveDataList = new ArrayList<>();
-                for (Subscription subscription : mCacheDataList) {
-                    mLiveDataList.add(subscription.clone());
-                }
-                mObserver.onDataChanged(mLiveDataList);
-                break;
-            case MODIFY:
-                for (Subscription modifiedSubscription : dataList) {
-                    for (Subscription liveSubscription : mLiveDataList) {
-                        if (modifiedSubscription.getId().equals(liveSubscription.getId())) {
-                            update(liveSubscription, modifiedSubscription);
-                        }
-                    }
-                }
-                mObserver.onDataChanged(mLiveDataList);
-                break;
-        }
     }
 
     private void update(Subscription oldS, Subscription newS) {

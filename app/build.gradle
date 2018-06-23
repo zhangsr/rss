@@ -33,7 +33,5 @@ dependencies {
     implementation project(':viewmodel')
     implementation project(':common')
     implementation project(':bean')
-    // todo remove
-    implementation project(':model')
 }
 

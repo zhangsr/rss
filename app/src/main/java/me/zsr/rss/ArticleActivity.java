@@ -15,20 +15,17 @@ import android.widget.Toast;
 import java.util.List;
 
 import me.zsr.bean.Article;
-import me.zsr.bean.ArticleDao;
 import me.zsr.bean.Subscription;
-import me.zsr.bean.SubscriptionDao;
 import me.zsr.common.AnimationHelper;
 import me.zsr.common.DateUtil;
 import me.zsr.common.IntentUtil;
 import me.zsr.common.SPManager;
 import me.zsr.common.StringUtil;
 import me.zsr.common.ThreadManager;
-import me.zsr.model.ArticleModel;
-import me.zsr.model.DBManager;
 import me.zsr.rss.common.LinkMovementMethodEx;
 import me.zsr.rss.htmltextview.HtmlTextView;
 import me.zsr.rss.view.ArticleUtil;
+import me.zsr.viewmodel.ArticleViewModel;
 
 import static me.zsr.rss.Constants.FONT_SIZE_BIG;
 import static me.zsr.rss.Constants.FONT_SIZE_MEDIUM;
@@ -53,6 +50,8 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean mIsClickEnabled= true;
     private boolean mIsLoading;
+
+    private ArticleViewModel mModel = new ArticleViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                                 item.setIcon(R.drawable.ic_star_white_24dp);
                                 Toast.makeText(ArticleActivity.this, R.string.favorited, Toast.LENGTH_SHORT).show();
                             }
-                            ArticleModel.getInstance().saveArticle(mArticle);
+                            mModel.saveArticle(mArticle);
                         }
                         break;
                     case R.id.action_share:
@@ -135,21 +134,19 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         ThreadManager.postInBackground(new Runnable() {
             @Override
             public void run() {
-                final List<Article> articleList = DBManager.getArticleDao().queryBuilder().where(
-                        ArticleDao.Properties.Id.eq(articleId)).list();
+                final List<Article> articleList = mModel.queryArticles(articleId);
                 if (articleList.size() != 1) {
                     return;
                 }
                 mArticle = articleList.get(0);
 
-                final List<Subscription> subscriptionList = DBManager.getSubscriptionDao().queryBuilder().where(
-                        SubscriptionDao.Properties.Id.eq(mArticle.getSubscriptionId())).list();
+                final List<Subscription> subscriptionList = mModel.querySubscriptions(mArticle.getSubscriptionId());
                 if (subscriptionList.size() != 1) {
                     return;
                 }
 
                 if (!mArticle.getRead()) {
-                    ArticleModel.getInstance().markAllRead(true, mArticle);
+                    mModel.markAllRead(true, mArticle);
                 }
 
                 ThreadManager.post(new Runnable() {

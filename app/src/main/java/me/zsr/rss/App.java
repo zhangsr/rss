@@ -6,7 +6,7 @@ import me.zsr.common.LogUtil;
 import me.zsr.common.SPManager;
 import me.zsr.common.ThreadManager;
 import me.zsr.common.VolleySingleton;
-import me.zsr.model.DBManager;
+import me.zsr.viewmodel.ViewModelManager;
 
 /**
  * Architecture : MVVM
@@ -38,6 +38,6 @@ public class App extends Application {
 
         ThreadManager.init();
 
-        DBManager.init(this);
+        ViewModelManager.init(this);
     }
 }
