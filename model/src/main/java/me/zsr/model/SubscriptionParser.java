@@ -87,7 +87,6 @@ public class SubscriptionParser {
                 XMLUtil.skip(parser);
             }
         }
-        subscription.setKey("feed/" + subscription.getUrl());
         subscription.setCategory("");
         subscription.setSortid("");
         subscription.setAccountId(0L);

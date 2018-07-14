@@ -98,6 +98,7 @@ public class Subscription {
 
     public void setUrl(String url) {
         this.url = url;
+        setKey("feed/" + url);
     }
 
     public String getIconUrl() {
