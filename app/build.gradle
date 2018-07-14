@@ -41,5 +41,8 @@ dependencies {
     implementation project(':common')
     implementation project(':bean')
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+    // Dialog
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 }
 

@@ -19,6 +19,7 @@ import me.zsr.viewmodel.PresetDiscoverViewModel;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private FrameLayout mPageContainer;
+    private Menu mMenu;
     private IPage mInboxPage;
     private IPage mDiscoverPage;
     private IPage mPersonPage;
@@ -49,12 +50,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.navigation_inbox:
                 mCurrentPage = getInboxPage();
+                hideOptionMenu(R.id.action_search);
+                showOptionMenu(R.id.action_add);
                 break;
             case R.id.navigation_discover:
                 mCurrentPage = getDiscoverPage();
+                showOptionMenu(R.id.action_search);
+                hideOptionMenu(R.id.action_add);
                 break;
             case R.id.navigation_person:
                 mCurrentPage = getPersonPage();
+                hideOptionMenu(R.id.action_search);
+                hideOptionMenu(R.id.action_add);
                 break;
         }
 
@@ -110,10 +117,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.findItem(R.id.action_add).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                DialogFactory.showCreateLocalAccountDialog(MainActivity.this);
+                return true;
+            }
+        });
+
+        menu.findItem(R.id.action_search).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
@@ -122,5 +137,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
 
         return true;
+    }
+
+    private void hideOptionMenu(int id) {
+        MenuItem item = mMenu.findItem(id);
+        item.setVisible(false);
+    }
+
+    private void showOptionMenu(int id) {
+        MenuItem item = mMenu.findItem(id);
+        item.setVisible(true);
     }
 }

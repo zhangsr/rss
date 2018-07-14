@@ -25,7 +25,7 @@ import me.zsr.common.ThreadManager;
 import me.zsr.rss.common.LinkMovementMethodEx;
 import me.zsr.rss.htmltextview.HtmlTextView;
 import me.zsr.rss.view.ArticleUtil;
-import me.zsr.viewmodel.ArticleViewModel;
+import me.zsr.viewmodel.ModelProxy;
 
 import static me.zsr.rss.Constants.FONT_SIZE_BIG;
 import static me.zsr.rss.Constants.FONT_SIZE_MEDIUM;
@@ -51,7 +51,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
     private boolean mIsClickEnabled= true;
     private boolean mIsLoading;
 
-    private ArticleViewModel mModel = new ArticleViewModel();
+    private ModelProxy mModel = new ModelProxy();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,6 +11,9 @@
     <string name="unfavorited">取消收藏</string>
     <string name="link">打开原文链接</string>
     <string name="share">分享</string>
+    <string name="none"></string>
+    <string name="add_subscription">添加订阅</string>
+    <string name="add_subscription_hint">www.zhihu.com/rss</string>
 
     <string name="font">字体</string>
     <string name="reading_font_size">阅读字体大小</string>
