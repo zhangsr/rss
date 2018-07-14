@@ -15,6 +15,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 buildscript {
@@ -33,5 +40,6 @@ dependencies {
     implementation project(':viewmodel')
     implementation project(':common')
     implementation project(':bean')
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 }
 

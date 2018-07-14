@@ -26,8 +26,10 @@ public class DiscoverPage extends IPage implements ViewModelObserver<Discover>, 
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         addView(mRecyclerView);
+    }
 
-        mViewModel = new DiscoverViewModel(this, getContext());
+    public void setViewModel(DiscoverViewModel viewModel) {
+        mViewModel = viewModel;
     }
 
     @Override

@@ -36,6 +36,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/NoActionBarTheme"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

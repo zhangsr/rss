@@ -1,9 +1,11 @@
 package me.zsr.rss;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import me.zsr.rss.view.DiscoverPage;
 import me.zsr.rss.view.IPage;
 import me.zsr.rss.view.InboxPage;
 import me.zsr.rss.view.PersonPage;
+import me.zsr.viewmodel.PresetDiscoverViewModel;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private FrameLayout mPageContainer;
@@ -72,7 +75,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private IPage getDiscoverPage() {
         if (mDiscoverPage == null) {
-            mDiscoverPage = new DiscoverPage(this);
+            DiscoverPage discoverPage = new DiscoverPage(this);
+            PresetDiscoverViewModel viewModel = new PresetDiscoverViewModel(discoverPage, this);
+            discoverPage.setViewModel(viewModel);
+            viewModel.preloadData();
+            mDiscoverPage = discoverPage;
         }
         return mDiscoverPage;
     }
@@ -99,5 +106,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }, 5000);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                return true;
+            }
+        });
+
+        return true;
     }
 }
