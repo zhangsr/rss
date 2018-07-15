@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (!mCurrentPage.handleBackPress()) {
             if (mCanBackExit) {
                 super.onBackPressed();
+
+                // TODO: 2018/7/15  good ?
+                System.exit(0);
             } else {
                 mCanBackExit = true;
                 Toast.makeText(this, R.string.back_exit_hint, Toast.LENGTH_SHORT).show();
@@ -140,6 +143,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
         menu.findItem(R.id.action_refresh).setActionView(mRefreshImageView);
 
+        // bad smell
+        // first load auto call refreshing, but manager is not init yet, do it here
+        RefreshManager.showRefreshing(this);
+
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -161,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void hideOptionMenu(int id) {
         MenuItem item = mMenu.findItem(id);
+        if (item.getActionView() != null) {
+            item.getActionView().clearAnimation();
+        }
         item.setVisible(false);
     }
 

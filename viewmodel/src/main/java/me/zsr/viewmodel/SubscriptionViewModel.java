@@ -51,13 +51,6 @@ public class SubscriptionViewModel {
 
         SubscriptionModel.getInstance().registerObserver(mModelObserver);
         initLoad();
-
-        ThreadManager.postDelay(new Runnable() {
-            @Override
-            public void run() {
-                requestUpdate();
-            }
-        }, 3000);
     }
 
     private void initLoad() {
