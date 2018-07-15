@@ -7,7 +7,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import me.zsr.common.ThreadManager;
@@ -15,6 +18,7 @@ import me.zsr.rss.view.DiscoverPage;
 import me.zsr.rss.view.IPage;
 import me.zsr.rss.view.InboxPage;
 import me.zsr.rss.view.PersonPage;
+import me.zsr.viewmodel.ModelProxy;
 import me.zsr.viewmodel.PresetDiscoverViewModel;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private IPage mDiscoverPage;
     private IPage mPersonPage;
     private IPage mCurrentPage;
+    private ImageView mRefreshImageView;
 
     private boolean mCanBackExit;
 
@@ -50,18 +55,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
             case R.id.navigation_inbox:
                 mCurrentPage = getInboxPage();
-                hideOptionMenu(R.id.action_search);
+                showOptionMenu(R.id.action_refresh);
                 showOptionMenu(R.id.action_add);
+                hideOptionMenu(R.id.action_search);
                 break;
             case R.id.navigation_discover:
                 mCurrentPage = getDiscoverPage();
-                showOptionMenu(R.id.action_search);
+                hideOptionMenu(R.id.action_refresh);
                 hideOptionMenu(R.id.action_add);
+                showOptionMenu(R.id.action_search);
                 break;
             case R.id.navigation_person:
                 mCurrentPage = getPersonPage();
-                hideOptionMenu(R.id.action_search);
+                hideOptionMenu(R.id.action_refresh);
                 hideOptionMenu(R.id.action_add);
+                hideOptionMenu(R.id.action_search);
                 break;
         }
 
@@ -119,6 +127,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        mRefreshImageView = new ImageView(this);
+        mRefreshImageView.setImageResource(R.drawable.baseline_autorenew_white_24);
+        mRefreshImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mRefreshImageView.getAnimation() == null || !mRefreshImageView.getAnimation().hasStarted()) {
+                    Toast.makeText(MainActivity.this, "onRequestUpdate", Toast.LENGTH_SHORT).show();
+                    ModelProxy.requestUpdateAll();
+
+                    mRefreshImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_indefinitely));
+                    ThreadManager.postDelay(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRefreshImageView.clearAnimation();
+                        }
+                    }, 5000);
+                }
+            }
+        });
+        menu.findItem(R.id.action_refresh).setActionView(mRefreshImageView);
 
         menu.findItem(R.id.action_add).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

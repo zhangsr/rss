@@ -12,6 +12,7 @@
     <string name="link">打开原文链接</string>
     <string name="share">分享</string>
     <string name="none"></string>
+    <string name="refresh">刷新</string>
     <string name="add_subscription">添加订阅</string>
     <string name="add_subscription_hint">www.zhihu.com/rss</string>
 

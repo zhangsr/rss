@@ -28,6 +28,7 @@ public class SubscriptionViewModel {
                         mLiveDataList.add(subscription.clone());
                     }
                     mObserver.onDataChanged(mLiveDataList);
+                    requestUpdate();
                     break;
                 case MODIFY:
                     for (Subscription modifiedSubscription : dataList) {

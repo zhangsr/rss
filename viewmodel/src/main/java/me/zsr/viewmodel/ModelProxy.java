@@ -67,4 +67,8 @@ public class ModelProxy {
         LogUtil.i("request=" + url);
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
+
+    public static void requestUpdateAll() {
+        SubscriptionModel.getInstance().fetchAll();
+    }
 }

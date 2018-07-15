@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/baseline_autorenew_white_24"
+        android:orderInCategory="100"
+        android:title="@string/refresh"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_add"
         android:icon="@drawable/round_add_white_24"
         android:orderInCategory="100"
