@@ -81,11 +81,11 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                         if (mArticle != null) {
                             if (mArticle.getFavorite()) {
                                 mArticle.setFavorite(false);
-                                item.setIcon(R.drawable.ic_star_border_white_24dp);
+                                item.setIcon(R.drawable.round_star_border_white_24);
                                 Toast.makeText(ArticleActivity.this, R.string.unfavorited, Toast.LENGTH_SHORT).show();
                             } else {
                                 mArticle.setFavorite(true);
-                                item.setIcon(R.drawable.ic_star_white_24dp);
+                                item.setIcon(R.drawable.round_star_white_24);
                                 Toast.makeText(ArticleActivity.this, R.string.favorited, Toast.LENGTH_SHORT).show();
                             }
                             mModel.saveArticle(mArticle);
@@ -173,9 +173,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
             mToolbar.getMenu().findItem(R.id.action_link).setVisible(true);
         }
         if (article.getFavorite()) {
-            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.ic_star_white_24dp);
+            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_white_24);
         } else {
-            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.ic_star_border_white_24dp);
+            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_border_white_24);
         }
 
         if (mCurrentIndex == 0) {

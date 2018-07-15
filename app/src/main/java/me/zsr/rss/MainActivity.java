@@ -129,22 +129,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         mRefreshImageView = new ImageView(this);
-        mRefreshImageView.setImageResource(R.drawable.baseline_autorenew_white_24);
+        RefreshManager.init(mRefreshImageView);
+        mRefreshImageView.setImageResource(R.drawable.round_autorenew_white_24);
         mRefreshImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mRefreshImageView.getAnimation() == null || !mRefreshImageView.getAnimation().hasStarted()) {
-                    Toast.makeText(MainActivity.this, "onRequestUpdate", Toast.LENGTH_SHORT).show();
-                    ModelProxy.requestUpdateAll();
-
-                    mRefreshImageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_indefinitely));
-                    ThreadManager.postDelay(new Runnable() {
-                        @Override
-                        public void run() {
-                            mRefreshImageView.clearAnimation();
-                        }
-                    }, 5000);
-                }
+                ModelProxy.requestUpdateAll();
+                RefreshManager.showRefreshing(MainActivity.this);
             }
         });
         menu.findItem(R.id.action_refresh).setActionView(mRefreshImageView);

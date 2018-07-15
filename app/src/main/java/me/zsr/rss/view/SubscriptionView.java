@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import me.zsr.bean.Subscription;
+import me.zsr.rss.RefreshManager;
 import me.zsr.viewmodel.SubscriptionViewModel;
 import me.zsr.viewmodel.ViewModelObserver;
 
@@ -42,7 +43,7 @@ public class SubscriptionView extends FrameLayout implements ViewModelObserver<S
 
     @Override
     public void onRequestUpdate() {
-        Toast.makeText(getContext(), "onRequestUpdate", Toast.LENGTH_SHORT).show();
+        RefreshManager.showRefreshing(getContext());
     }
 
     @Override
