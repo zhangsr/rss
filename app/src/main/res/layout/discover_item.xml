@@ -55,7 +55,8 @@
 
         <ImageButton
             android:id="@+id/add_btn"
-            android:src="@drawable/round_add_white_24"
+            android:src="@drawable/round_add_black_24"
+            android:tint="@android:color/white"
             android:layout_width="64dp"
             android:layout_height="42dp" />
     </LinearLayout>

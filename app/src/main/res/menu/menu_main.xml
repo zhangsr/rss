@@ -4,21 +4,21 @@
 
     <item
         android:id="@+id/action_refresh"
-        android:icon="@drawable/round_autorenew_white_24"
+        android:icon="@drawable/round_autorenew_black_24"
         android:orderInCategory="100"
         android:title="@string/refresh"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/round_add_white_24"
+        android:icon="@drawable/round_add_black_24"
         android:orderInCategory="100"
         android:title="@string/add_subscription"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_action_search"
+        android:icon="@drawable/round_search_black_24"
         android:orderInCategory="100"
         android:visible="false"
         android:title="@string/abc_search_hint"

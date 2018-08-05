@@ -14,7 +14,6 @@ import static me.zsr.rss.Constants.*;
 
 public class PersonPage extends IPage {
     private View mRootView;
-    private ImageView mPersonImageView;
     private ImageView mFavImageView;
     private ImageView mFontSizeImageView;
     private TextView mFontSizeTextView;
@@ -23,8 +22,6 @@ public class PersonPage extends IPage {
         super(context);
 
         mRootView = LayoutInflater.from(context).inflate(R.layout.page_person, this);
-        mPersonImageView = mRootView.findViewById(R.id.person_img);
-        mPersonImageView.setColorFilter(getResources().getColor(R.color.main_grey_normal));
         mFavImageView = mRootView.findViewById(R.id.fav_img);
         mFavImageView.setColorFilter(getResources().getColor(R.color.main_grey_normal));
         mFontSizeImageView = mRootView.findViewById(R.id.font_size_img);

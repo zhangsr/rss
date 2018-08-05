@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         mRefreshImageView = new ImageView(this);
         RefreshManager.init(mRefreshImageView);
-        mRefreshImageView.setImageResource(R.drawable.round_autorenew_white_24);
+        mRefreshImageView.setImageResource(R.drawable.round_autorenew_black_24);
         mRefreshImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
