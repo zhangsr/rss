@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import me.zsr.common.SPManager;
 import me.zsr.rss.R;
 
@@ -27,7 +29,31 @@ public class PersonPage extends IPage {
         mFontSizeImageView = mRootView.findViewById(R.id.font_size_img);
         mFontSizeImageView.setColorFilter(getResources().getColor(R.color.main_grey_normal));
         mFontSizeTextView = mRootView.findViewById(R.id.font_size_txt);
+        mRootView.findViewById(R.id.font_size_layout).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontSizeChoice();
+            }
+        });
         setFontSizeText(SPManager.getInt(KEY_FONT_SIZE, FONT_SIZE_MEDIUM));
+    }
+
+    private void showFontSizeChoice() {
+        // Index map to size value
+        int currentSize = SPManager.getInt(KEY_FONT_SIZE, FONT_SIZE_MEDIUM);
+        new MaterialDialog.Builder(getContext())
+                .title(R.string.font)
+                .items(R.array.font_size)
+                .itemsCallbackSingleChoice(currentSize, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        SPManager.setInt(KEY_FONT_SIZE, which);
+                        setFontSizeText(which);
+                        dialog.dismiss();
+                        return true; // allow selection
+                    }
+                })
+                .show();
     }
 
     private void setFontSizeText(int fontSize) {

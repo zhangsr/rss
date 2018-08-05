@@ -31,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void setupSearch() {
         mSearchView = findViewById(R.id.search_view);
+        mSearchView.setHint(getResources().getString(R.string.search));
         mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {

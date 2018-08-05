@@ -13,14 +13,20 @@
     <string name="share">分享</string>
     <string name="none"></string>
     <string name="refresh">刷新</string>
-    <string name="add_subscription">添加订阅</string>
+    <string name="add_subscription">添加RSS订阅</string>
     <string name="add_subscription_hint">www.zhihu.com/rss</string>
     <string name="mark_as_read">标记为已读</string>
     <string name="remove_subscription">取消订阅</string>
+    <string name="search">搜索</string>
 
     <string name="font">字体</string>
     <string name="reading_font_size">阅读字体大小</string>
     <string name="small">小</string>
     <string name="big">大</string>
     <string name="medium">中</string>
+    <string-array name="font_size">
+        <item>@string/small</item>
+        <item>@string/medium</item>
+        <item>@string/big</item>
+    </string-array>
 </resources>
