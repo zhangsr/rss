@@ -24,6 +24,10 @@ public class ModelProxy {
         ArticleModel.getInstance().markAllRead(read, articles);
     }
 
+    public static void markAllRead(boolean read, List<Article> articles) {
+        ArticleModel.getInstance().markAllRead(read, articles);
+    }
+
     public static void markAllRead(final boolean read, final long subscriptionId) {
         ArticleModel.getInstance().markAllRead(read, subscriptionId);
     }

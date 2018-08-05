@@ -18,6 +18,9 @@
     <string name="mark_as_read">标记为已读</string>
     <string name="remove_subscription">取消订阅</string>
     <string name="search">搜索</string>
+    <string name="mark_all_above_as_read">上面全部标记为已读</string>
+    <string name="mark_as_unread">标记为未读</string>
+    <string name="mark_all_below_as_read">下面全部标记为已读</string>
 
     <string name="font">字体</string>
     <string name="reading_font_size">阅读字体大小</string>
