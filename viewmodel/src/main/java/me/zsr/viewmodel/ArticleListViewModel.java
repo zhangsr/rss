@@ -20,9 +20,26 @@ public class ArticleListViewModel {
     private ModelObserver<Article> mModelObserver = new ModelObserver<Article>() {
         @Override
         public void onDataChanged(ModelAction action, List<Article> dataList) {
+            switch (action) {
+                case MODIFY:
+                    for (Article modifiedArticle : dataList) {
+                        for (Article liveArticle : mLiveDataList) {
+                            if (modifiedArticle.getId().equals(liveArticle.getId())) {
+                                update(liveArticle, modifiedArticle);
+                            }
+                        }
+                    }
+                    break;
+            }
 
+            mObserver.onDataChanged(mLiveDataList);
         }
     };
+
+    private void update(Article oldA, Article newA) {
+        // TODO: 2018/5/19 update more
+        oldA.setRead(newA.getRead());
+    }
 
     public ArticleListViewModel(ViewModelObserver<Article> observer, Subscription... subscriptions) {
         mObserver = observer;
