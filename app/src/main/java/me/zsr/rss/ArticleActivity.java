@@ -66,6 +66,13 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initViews() {
         mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.round_arrow_back_black_24));
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mToolbar.inflateMenu(R.menu.menu_article);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -81,11 +88,11 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
                         if (mArticle != null) {
                             if (mArticle.getFavorite()) {
                                 mArticle.setFavorite(false);
-                                item.setIcon(R.drawable.round_star_border_white_24);
+                                item.setIcon(R.drawable.round_star_border_black_24);
                                 Toast.makeText(ArticleActivity.this, R.string.unfavorited, Toast.LENGTH_SHORT).show();
                             } else {
                                 mArticle.setFavorite(true);
-                                item.setIcon(R.drawable.round_star_white_24);
+                                item.setIcon(R.drawable.round_star_black_24);
                                 Toast.makeText(ArticleActivity.this, R.string.favorited, Toast.LENGTH_SHORT).show();
                             }
                             mModel.saveArticle(mArticle);
@@ -173,9 +180,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
             mToolbar.getMenu().findItem(R.id.action_link).setVisible(true);
         }
         if (article.getFavorite()) {
-            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_white_24);
+            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_black_24);
         } else {
-            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_border_white_24);
+            mToolbar.getMenu().findItem(R.id.action_fav).setIcon(R.drawable.round_star_border_black_24);
         }
 
         if (mCurrentIndex == 0) {

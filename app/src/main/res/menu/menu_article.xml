@@ -5,18 +5,18 @@
     <item android:id="@+id/action_link"
           android:title="@string/link"
           android:orderInCategory="90"
-          android:icon="@drawable/ic_language_white_24dp"
+          android:icon="@drawable/round_language_black_24"
           app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_fav"
           android:title="@string/fav"
           android:orderInCategory="90"
-          android:icon="@drawable/round_star_border_white_24"
+          android:icon="@drawable/round_star_border_black_24"
           app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_share"
         android:title="@string/share"
         android:orderInCategory="90"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/round_share_black_24"
         app:showAsAction="ifRoom" />
 </menu>
