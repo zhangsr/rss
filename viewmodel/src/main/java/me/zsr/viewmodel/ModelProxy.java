@@ -20,8 +20,16 @@ import me.zsr.model.SubscriptionRequest;
 
 public class ModelProxy {
 
-    public void markAllRead(boolean read, Article... articles) {
+    public static void markAllRead(boolean read, Article... articles) {
         ArticleModel.getInstance().markAllRead(read, articles);
+    }
+
+    public static void markAllRead(final boolean read, final long subscriptionId) {
+        ArticleModel.getInstance().markAllRead(read, subscriptionId);
+    }
+
+    public static void deleteSubscription(Subscription... subscriptions) {
+        SubscriptionModel.getInstance().delete(subscriptions);
     }
 
     public void saveArticle(final Article article) {

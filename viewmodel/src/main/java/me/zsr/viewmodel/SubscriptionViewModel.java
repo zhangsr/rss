@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.zsr.common.LogUtil;
-import me.zsr.common.ThreadManager;
 import me.zsr.model.ModelAction;
 import me.zsr.model.ModelObserver;
 import me.zsr.bean.Subscription;
@@ -15,16 +14,13 @@ import me.zsr.model.SubscriptionModel;
 public class SubscriptionViewModel {
     private ViewModelObserver<Subscription> mObserver;
     private Context mContext;
-    private List<Subscription> mLiveDataList;
-    private List<Subscription> mCacheDataList = new ArrayList<>();
+    private List<Subscription> mLiveDataList = new ArrayList<>();
     private ModelObserver<Subscription> mModelObserver = new ModelObserver<Subscription>() {
         @Override
         public void onDataChanged(ModelAction action, List<Subscription> dataList) {
             switch (action) {
                 case ADD:
-                    mCacheDataList.addAll(dataList);
-                    mLiveDataList = new ArrayList<>();
-                    for (Subscription subscription : mCacheDataList) {
+                    for (Subscription subscription : dataList) {
                         mLiveDataList.add(subscription.clone());
                     }
                     mObserver.onDataChanged(mLiveDataList);
@@ -38,9 +34,13 @@ public class SubscriptionViewModel {
                             }
                         }
                     }
-                    mObserver.onDataChanged(mLiveDataList);
+                    break;
+                case DELETE:
+                    mLiveDataList.removeAll(dataList);
                     break;
             }
+
+            mObserver.onDataChanged(mLiveDataList);
         }
     };
 

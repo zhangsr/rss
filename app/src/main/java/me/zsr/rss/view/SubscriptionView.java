@@ -54,6 +54,7 @@ public class SubscriptionView extends FrameLayout implements ViewModelObserver<S
 
     @Override
     public boolean onItemLongClick(View view, List<Subscription> dataList, int pos) {
+        mUICallback.onSubscriptionLongClick(dataList.get(pos));
         return mViewModel.onItemLongClick(dataList, pos);
     }
 }

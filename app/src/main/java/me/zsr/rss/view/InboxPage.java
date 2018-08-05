@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import me.zsr.bean.Article;
 import me.zsr.bean.Subscription;
 import me.zsr.rss.ArticleActivity;
 import me.zsr.rss.Constants;
+import me.zsr.rss.R;
+import me.zsr.viewmodel.ModelProxy;
 
 public class InboxPage extends IPage implements SubscriptionViewCallback, ArticleListViewCallback {
     private SubscriptionView mSubscriptionView;
@@ -31,6 +37,30 @@ public class InboxPage extends IPage implements SubscriptionViewCallback, Articl
         removeView(mSubscriptionView);
         addView(mArticleListView);
         mArticleListView.showArticles(subscription);
+    }
+
+    @Override
+    public void onSubscriptionLongClick(final Subscription subscription) {
+        List<CharSequence> menuList = new ArrayList<>();
+        menuList.add(getContext().getResources().getString(R.string.mark_as_read));
+        menuList.add(getContext().getResources().getString(R.string.remove_subscription));
+        new MaterialDialog.Builder(getContext())
+                .title(subscription.getTitle())
+                .items(menuList.toArray(new CharSequence[menuList.size()]))
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i,
+                                            CharSequence charSequence) {
+                        switch (i) {
+                            case 0:
+                                ModelProxy.markAllRead(true, subscription.getId());
+                                break;
+                            case 1:
+                                ModelProxy.deleteSubscription(subscription);
+                                break;
+                        }
+                    }
+                }).show();
     }
 
     @Override

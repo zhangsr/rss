@@ -108,4 +108,27 @@ public class SubscriptionModel extends BaseModel implements ModelObserver<Articl
                 break;
         }
     }
+
+    public void delete(Subscription... subscriptions) {
+        delete(Arrays.asList(subscriptions));
+    }
+
+    public void delete(final List<Subscription> subscriptions) {
+        ThreadManager.postInBackground(new Runnable() {
+            @Override
+            public void run() {
+                for (Subscription subscription : subscriptions)  {
+                    DBManager.getArticleDao().deleteInTx(ArticleModel.getInstance()
+                            .queryBySubscriptionIdSync(subscription.getId()));
+                }
+                DBManager.getSubscriptionDao().deleteInTx(subscriptions);
+                ThreadManager.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyObservers(ModelAction.DELETE, subscriptions);
+                    }
+                });
+            }
+        });
+    }
 }

@@ -90,6 +90,15 @@ public class ArticleModel extends BaseModel {
         });
     }
 
+    public void markAllRead(final boolean read, final long subscriptionId) {
+        ThreadManager.postInBackground(new Runnable() {
+            @Override
+            public void run() {
+                markAllRead(read, queryBySubscriptionIdSync(subscriptionId));
+            }
+        });
+    }
+
     public void markAllRead(boolean read, Article... articles) {
         if (articles == null) {
             return;

@@ -202,4 +202,12 @@ public class Subscription {
                 category, sortid, totalCount, unreadCount, accountId, ext1, ext2, ext3);
         return subscription;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Subscription)) {
+            return false;
+        }
+        return ((Subscription) obj).getId().equals(getId());
+    }
 }
