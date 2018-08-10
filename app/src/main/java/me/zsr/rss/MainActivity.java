@@ -1,6 +1,8 @@
 package me.zsr.rss;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        setupStatusBar();
         setupInitPage();
     }
 
@@ -177,5 +180,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void showOptionMenu(int id) {
         MenuItem item = mMenu.findItem(id);
         item.setVisible(true);
+    }
+
+    private void setupStatusBar() {
+        Window window = getWindow();
+        if (supportConfigStatusBarTextColor()) {
+            View decorView = window.getDecorView();
+            int vis = decorView.getSystemUiVisibility();
+            vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decorView.setSystemUiVisibility(vis);
+        } else if (supportConfigStatusBarColor()) {
+            window.setStatusBarColor(Color.parseColor("#33000000"));
+        }
+
+    }
+
+    private boolean supportConfigStatusBarTextColor() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    private boolean supportConfigStatusBarColor() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 }
