@@ -47,4 +47,8 @@ public class ArticleListViewAdapter extends RecyclerView.Adapter<ArticleListView
     public int getItemCount() {
         return mArticleList == null ? 0 : mArticleList.size();
     }
+
+    public List<Article> getData() {
+        return mArticleList;
+    }
 }

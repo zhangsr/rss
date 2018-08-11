@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.zsr.bean.Article;
-import me.zsr.bean.Subscription;
 import me.zsr.rss.R;
 import me.zsr.viewmodel.ArticleListViewModel;
 import me.zsr.viewmodel.ModelProxy;
@@ -21,7 +20,7 @@ import me.zsr.viewmodel.ViewModelObserver;
 
 public class ArticleListView extends FrameLayout implements ViewModelObserver<Article>, RecycleViewObserver<Article> {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ArticleListViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArticleListViewCallback mUICallback;
     private ArticleListViewModel mViewModel;
@@ -37,19 +36,19 @@ public class ArticleListView extends FrameLayout implements ViewModelObserver<Ar
 
     }
 
-    public void showArticles(Subscription... subscriptions) {
-       mViewModel = new ArticleListViewModel(this, subscriptions);
-       mViewModel.load();
+    public void showArticles(Long[] subscriptionIds) {
+        mViewModel = new ArticleListViewModel(this);
+        mViewModel.load(subscriptionIds);
     }
 
     @Override
     public void onDataChanged(List<Article> dataList) {
-        mAdapter = new ArticleListViewAdapter(dataList, this);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    public void clear() {
-        onDataChanged(null);
+        if (mAdapter == null || mAdapter.getData() != dataList) {
+            mAdapter = new ArticleListViewAdapter(dataList, this);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

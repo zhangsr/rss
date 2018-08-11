@@ -47,4 +47,8 @@ public class SubscriptionViewAdapter extends RecyclerView.Adapter<SubscriptionVi
     public int getItemCount() {
         return mSubscriptionList == null ? 0 : mSubscriptionList.size();
     }
+
+    public List<Subscription> getData() {
+        return mSubscriptionList;
+    }
 }

@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ import me.zsr.viewmodel.ViewModelObserver;
 public class SubscriptionView extends FrameLayout implements ViewModelObserver<Subscription>, RecycleViewObserver<Subscription> {
     private SubscriptionViewModel mViewModel;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private SubscriptionViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SubscriptionViewCallback mUICallback;
 

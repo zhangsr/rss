@@ -11,16 +11,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.zsr.bean.Article;
 import me.zsr.bean.Subscription;
-import me.zsr.rss.ArticleActivity;
+import me.zsr.rss.ArticleListActivity;
 import me.zsr.rss.Constants;
 import me.zsr.rss.R;
 import me.zsr.viewmodel.ModelProxy;
 
-public class InboxPage extends IPage implements SubscriptionViewCallback, ArticleListViewCallback {
+public class InboxPage extends IPage implements SubscriptionViewCallback {
     private SubscriptionView mSubscriptionView;
-    private ArticleListView mArticleListView;
     private Context mContext;
 
     public InboxPage(@NonNull Context context) {
@@ -28,15 +26,17 @@ public class InboxPage extends IPage implements SubscriptionViewCallback, Articl
         mContext = context;
 
         mSubscriptionView = new SubscriptionView(context, this);
-        mArticleListView = new ArticleListView(context, this);
         addView(mSubscriptionView);
     }
 
     @Override
     public void onSubscriptionClick(Subscription subscription) {
-        removeView(mSubscriptionView);
-        addView(mArticleListView);
-        mArticleListView.showArticles(subscription);
+        Intent intent = new Intent(mContext, ArticleListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLongArray(Constants.KEY_BUNDLE_SUBSCRIPTION_ID, new long[]{subscription.getId()});
+        bundle.putString(Constants.KEY_BUNDLE_TITLE, subscription.getTitle());
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
     @Override
@@ -61,29 +61,5 @@ public class InboxPage extends IPage implements SubscriptionViewCallback, Articl
                         }
                     }
                 }).show();
-    }
-
-    @Override
-    public boolean handleBackPress() {
-        if (getChildAt(0) == mArticleListView) {
-            removeView(mArticleListView);
-            mArticleListView.clear();
-            addView(mSubscriptionView);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public void onArticleClick(List<Article> articleList, int pos) {
-        // TODO: 11/10/16 if no content and desc, shake then stay, and upload source
-
-        Intent intent = new Intent(mContext, ArticleActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putLongArray(Constants.KEY_BUNDLE_ARTICLE_ID, ArticleUtil.getIdArray(articleList));
-        bundle.putInt(Constants.KEY_BUNDLE_ARTICLE_INDEX, pos);
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
     }
 }

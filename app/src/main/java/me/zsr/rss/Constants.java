@@ -10,5 +10,9 @@ public class Constants {
     public static final String KEY_BUNDLE_ARTICLE_INDEX = "article_index";
     public static final String KEY_BUNDLE_PIC_URL = "pic_url";
 
+    // Article List
+    public static final String KEY_BUNDLE_SUBSCRIPTION_ID = "subscription_id";
+    public static final String KEY_BUNDLE_TITLE = "title";
+
     public static final String PACKAGE_NAME = "me.zsr.rss";
 }

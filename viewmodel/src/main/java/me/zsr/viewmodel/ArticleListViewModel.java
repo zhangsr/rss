@@ -13,7 +13,6 @@ import me.zsr.model.ModelObserver;
 
 public class ArticleListViewModel {
     private ViewModelObserver<Article> mObserver;
-    private List<Subscription> mSubscriptionList;
     private List<Article> mLiveDataList;
     private List<Article> mCacheDataList = new ArrayList<>();
     private boolean mIsLoading;
@@ -41,13 +40,24 @@ public class ArticleListViewModel {
         oldA.setRead(newA.getRead());
     }
 
-    public ArticleListViewModel(ViewModelObserver<Article> observer, Subscription... subscriptions) {
+    public ArticleListViewModel(ViewModelObserver<Article> observer) {
         mObserver = observer;
-        mSubscriptionList = Arrays.asList(subscriptions);
         ArticleModel.getInstance().registerObserver(mModelObserver);
     }
 
-    public void load() {
+    public void load(final Subscription... subscriptions) {
+        List<Long> ids = new ArrayList<>();
+        for (Subscription subscription : subscriptions) {
+            ids.add(subscription.getId());
+        }
+        load(ids);
+    }
+
+    public void load(Long... ids) {
+        load(Arrays.asList(ids));
+    }
+
+    public void load (final List<Long> subscriptionIds) {
         if (mIsLoading) {
             return;
         }
@@ -57,8 +67,8 @@ public class ArticleListViewModel {
             @Override
             public void run() {
                 mCacheDataList.clear();
-                for (Subscription subscription : mSubscriptionList) {
-                    mCacheDataList.addAll(ArticleModel.getInstance().queryBySubscriptionIdSync(subscription.getId()));
+                for (long id : subscriptionIds) {
+                    mCacheDataList.addAll(ArticleModel.getInstance().queryBySubscriptionIdSync(id));
                 }
 
                 ThreadManager.post(new Runnable() {
@@ -83,7 +93,7 @@ public class ArticleListViewModel {
 
         Article data = dataList.get(pos);
         if (!data.getRead()) {
-            ArticleModel.getInstance().markAllRead(true, data);
+            ArticleModel.getInstance().markRead(true, data);
         }
 
     }

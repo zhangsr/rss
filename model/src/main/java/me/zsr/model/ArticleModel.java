@@ -90,25 +90,25 @@ public class ArticleModel extends BaseModel {
         });
     }
 
-    public void markAllRead(final boolean read, final long subscriptionId) {
+    public void markRead(final boolean read, final long subscriptionId) {
         ThreadManager.postInBackground(new Runnable() {
             @Override
             public void run() {
-                markAllRead(read, queryBySubscriptionIdSync(subscriptionId));
+                markRead(read, queryBySubscriptionIdSync(subscriptionId));
             }
         });
     }
 
-    public void markAllRead(boolean read, Article... articles) {
+    public void markRead(boolean read, Article... articles) {
         if (articles == null) {
             return;
         }
         List<Article> articleList = Arrays.asList(articles);
-        markAllRead(read, articleList);
+        markRead(read, articleList);
     }
 
-    public void markAllRead(final boolean read, final List<Article> articleList) {
-        LOG_MA("markAllRead");
+    public void markRead(final boolean read, final List<Article> articleList) {
+        LOG_MA("markRead");
         if (articleList == null || articleList.size() == 0) {
             return;
         }

@@ -2,7 +2,6 @@ package me.zsr.rss;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,7 +11,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import me.zsr.rss.view.DiscoverPage;
 import me.zsr.viewmodel.SearchDiscoverViewModel;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
     private ViewGroup mRootView;
     private MaterialSearchView mSearchView;
     private DiscoverPage mDiscoverPage;
