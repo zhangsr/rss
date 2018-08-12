@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">黑洞</string>
     <string name="title_inbox">订阅</string>
     <string name="title_discover">发现</string>
     <string name="title_person">我的</string>

@@ -2,6 +2,8 @@ package me.zsr.rss;
 
 import android.app.Application;
 
+import com.umeng.commonsdk.UMConfigure;
+
 import me.zsr.common.LogUtil;
 import me.zsr.common.SPManager;
 import me.zsr.common.ThreadManager;
@@ -33,6 +35,8 @@ public class App extends Application {
         ImageLoaderManager.init(this);
 
         SPManager.init(this);
+
+        UMConfigure.init(this, "5b7019f68f4a9d06fc000798", "default", UMConfigure.DEVICE_TYPE_PHONE, "");
 
         //**************** No dependence end *****************
 
