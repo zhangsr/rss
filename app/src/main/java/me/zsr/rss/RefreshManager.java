@@ -1,6 +1,7 @@
 package me.zsr.rss;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,7 +27,9 @@ public class RefreshManager {
         }
 
         mRefreshImageView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.rotate_indefinitely));
-        Toast.makeText(context, "refresh", Toast.LENGTH_SHORT).show();
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(context, "refresh", Toast.LENGTH_SHORT).show();
+        }
         ThreadManager.postDelay(new Runnable() {
             @Override
             public void run() {
