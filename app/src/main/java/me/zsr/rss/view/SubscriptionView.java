@@ -35,9 +35,12 @@ public class SubscriptionView extends FrameLayout implements ViewModelObserver<S
 
     @Override
     public void onDataChanged(List<Subscription> dataList) {
-        // TODO: 2018/5/12 new every time?
-        mAdapter = new SubscriptionViewAdapter(dataList, this);
-        mRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null || mAdapter.getData() != dataList) {
+            mAdapter = new SubscriptionViewAdapter(dataList, this);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
