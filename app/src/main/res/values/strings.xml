@@ -23,6 +23,7 @@
     <string name="mark_all_below_as_read">下面全部标记为已读</string>
 
     <string name="font">字体</string>
+    <string name="settings">设置</string>
     <string name="reading_font_size">阅读字体大小</string>
     <string name="small">小</string>
     <string name="big">大</string>
