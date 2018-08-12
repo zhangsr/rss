@@ -7,7 +7,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Html.ImageGetter;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +19,7 @@ import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.net.URL;
 
-import me.zsr.rss.htmltextview.HtmlTextView;
+import me.zsr.common.LogUtil;
 
 public class HtmlImageGetterEx implements ImageGetter {
     TextView container;
@@ -85,7 +84,7 @@ public class HtmlImageGetterEx implements ImageGetter {
         @Override
         protected void onPostExecute(Drawable result) {
             if (result == null) {
-                Log.w(HtmlTextView.TAG, "Drawable result is null! (source: " + source + ")");
+                LogUtil.w("Drawable result is null! (source: " + source + ")");
                 return;
             }
             final UrlDrawable urlDrawable = drawableReference.get();
@@ -108,6 +107,7 @@ public class HtmlImageGetterEx implements ImageGetter {
             try {
                 imageGetter.container.setText(imageGetter.container.getText());
             } catch (IndexOutOfBoundsException e) {
+                LogUtil.e("fetchDrawable " + e);
                 e.printStackTrace();
             }
         }
@@ -133,6 +133,7 @@ public class HtmlImageGetterEx implements ImageGetter {
                 // TODO: 3/4/17 stat size
                 return drawable;
             } catch (Exception e) {
+                LogUtil.e("fetchDrawable " + e);
                 return null;
             }
         }

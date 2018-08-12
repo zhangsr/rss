@@ -8,6 +8,8 @@ import android.text.style.ImageSpan;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import me.zsr.common.LogUtil;
+
 public class LinkMovementMethodEx extends LinkMovementMethod {
     private static LinkMovementMethodEx sInstance;
     private OnPicClickListener mPicClickListener;
@@ -55,7 +57,7 @@ public class LinkMovementMethodEx extends LinkMovementMethod {
         try {
             return super.onTouchEvent(widget, buffer, event);
         } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
+            LogUtil.e("fetchDrawable " + e);
         }
 
         return false;
