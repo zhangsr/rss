@@ -11,6 +11,9 @@ public class Constants {
     public static final String KEY_BUNDLE_PIC_URL = "pic_url";
 
     // Article List
+    public static final String KEY_BUNDLE_TYPE = "type";
+    public static final String KEY_BUNDLE_TYPE_FAV = "type_fav";
+    public static final String KEY_BUNDLE_TYPE_SUBSCRIPTION = "type_subscription";
     public static final String KEY_BUNDLE_SUBSCRIPTION_ID = "subscription_id";
     public static final String KEY_BUNDLE_TITLE = "title";
 

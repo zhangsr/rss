@@ -1,6 +1,8 @@
 package me.zsr.rss.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import me.zsr.common.SPManager;
+import me.zsr.rss.ArticleListActivity;
+import me.zsr.rss.Constants;
 import me.zsr.rss.R;
 
 import static me.zsr.rss.Constants.*;
@@ -19,13 +23,21 @@ public class PersonPage extends IPage {
     private ImageView mFavImageView;
     private ImageView mFontSizeImageView;
     private TextView mFontSizeTextView;
+    private Context mContext;
 
     public PersonPage(@NonNull Context context) {
         super(context);
+        mContext = context;
 
         mRootView = LayoutInflater.from(context).inflate(R.layout.page_person, this);
         mFavImageView = mRootView.findViewById(R.id.fav_img);
         mFavImageView.setColorFilter(getResources().getColor(R.color.main_grey_normal));
+        mRootView.findViewById(R.id.fav_layout).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFav();
+            }
+        });
         mFontSizeImageView = mRootView.findViewById(R.id.font_size_img);
         mFontSizeImageView.setColorFilter(getResources().getColor(R.color.main_grey_normal));
         mFontSizeTextView = mRootView.findViewById(R.id.font_size_txt);
@@ -36,6 +48,15 @@ public class PersonPage extends IPage {
             }
         });
         setFontSizeText(SPManager.getInt(KEY_FONT_SIZE, FONT_SIZE_MEDIUM));
+    }
+
+    private void showFav() {
+        Intent intent = new Intent(mContext, ArticleListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_BUNDLE_TYPE, Constants.KEY_BUNDLE_TYPE_FAV);
+        bundle.putString(Constants.KEY_BUNDLE_TITLE, getResources().getString(R.string.fav));
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
     private void showFontSizeChoice() {

@@ -49,8 +49,16 @@ public class ArticleListActivity extends BaseActivity implements ArticleListView
         mArticleListView = new ArticleListView(this, this);
         mRootView.addView(mArticleListView);
 
-        mIdArray = getIntent().getExtras().getLongArray(Constants.KEY_BUNDLE_SUBSCRIPTION_ID);
-        mArticleListView.showArticles(NumberUtil.toLongArray(mIdArray));
+        switch (getIntent().getExtras().getString(Constants.KEY_BUNDLE_TYPE)) {
+            case Constants.KEY_BUNDLE_TYPE_SUBSCRIPTION:
+                mIdArray = getIntent().getExtras().getLongArray(Constants.KEY_BUNDLE_SUBSCRIPTION_ID);
+                mArticleListView.showSubscriptions(NumberUtil.toLongArray(mIdArray));
+                break;
+            case Constants.KEY_BUNDLE_TYPE_FAV:
+                mArticleListView.showFav();
+                break;
+        }
+
     }
 
     @Override

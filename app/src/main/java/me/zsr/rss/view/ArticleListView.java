@@ -36,9 +36,14 @@ public class ArticleListView extends FrameLayout implements ViewModelObserver<Ar
 
     }
 
-    public void showArticles(Long[] subscriptionIds) {
+    public void showSubscriptions(Long[] subscriptionIds) {
         mViewModel = new ArticleListViewModel(this);
         mViewModel.load(subscriptionIds);
+    }
+
+    public void showFav() {
+        mViewModel = new ArticleListViewModel(this);
+        mViewModel.loadFav();
     }
 
     @Override

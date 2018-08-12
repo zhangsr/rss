@@ -42,6 +42,12 @@ public class ArticleModel extends BaseModel {
         return qb.list();
     }
 
+    public List<Article> queryFav() {
+        return DBManager.getArticleDao().queryBuilder().where(
+                ArticleDao.Properties.Favorite.eq(true))
+                .orderDesc(ArticleDao.Properties.Published).list();
+    }
+
     public void requestNetwork(final Subscription subscription) {
         LOG_MA("requestNetwork name=" + subscription.getTitle());
         if (subscription == null) {

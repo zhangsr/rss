@@ -33,6 +33,7 @@ public class InboxPage extends IPage implements SubscriptionViewCallback {
     public void onSubscriptionClick(Subscription subscription) {
         Intent intent = new Intent(mContext, ArticleListActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_BUNDLE_TYPE, Constants.KEY_BUNDLE_TYPE_SUBSCRIPTION);
         bundle.putLongArray(Constants.KEY_BUNDLE_SUBSCRIPTION_ID, new long[]{subscription.getId()});
         bundle.putString(Constants.KEY_BUNDLE_TITLE, subscription.getTitle());
         intent.putExtras(bundle);
