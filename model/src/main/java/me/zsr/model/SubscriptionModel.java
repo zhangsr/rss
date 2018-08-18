@@ -92,6 +92,10 @@ public class SubscriptionModel extends BaseModel implements ModelObserver<Articl
                 List<Subscription> updatedList = new ArrayList<>();
                 for (Long id : subscriptionIdList) {
                     Subscription subscription = DBManager.getSubscriptionDao().queryBuilder().where(SubscriptionDao.Properties.Id.eq(id)).unique();
+                    if (subscription == null) {
+                        continue;
+                    }
+
                     final long totalCount = DBManager.getArticleDao().queryBuilder().where(
                             ArticleDao.Properties.SubscriptionId.eq(id)).count();
                     final long unreadCount = DBManager.getArticleDao().queryBuilder().where(

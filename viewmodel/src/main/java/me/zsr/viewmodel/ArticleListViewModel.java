@@ -21,6 +21,10 @@ public class ArticleListViewModel {
         public void onDataChanged(ModelAction action, List<Article> dataList) {
             switch (action) {
                 case MODIFY:
+                    if (mLiveDataList == null) {
+                        break;
+                    }
+
                     for (Article modifiedArticle : dataList) {
                         for (Article liveArticle : mLiveDataList) {
                             if (modifiedArticle.getId().equals(liveArticle.getId())) {
